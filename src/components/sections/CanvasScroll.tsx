@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import Marquee from "@/components/Marquee";
 
-gsap.registerPlugin(ScrollTrigger);
 
 const FRAME_COUNT = 240;
 
@@ -17,6 +16,7 @@ export default function CanvasScroll() {
   const frames = useRef<HTMLImageElement[]>([]);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const preloadImages = async () => {
       const loadPromises = [];
 
