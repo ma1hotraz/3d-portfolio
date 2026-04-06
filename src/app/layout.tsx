@@ -26,6 +26,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} h-full antialiased bg-white text-black`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">
         <NoiseOverlay />
