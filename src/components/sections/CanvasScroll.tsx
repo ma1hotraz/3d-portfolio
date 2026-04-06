@@ -13,11 +13,13 @@ export default function CanvasScroll() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
   const frames = useRef<HTMLImageElement[]>([]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const preloadImages = async () => {
+      let loaded = 0;
       const loadPromises = [];
 
       for (let i = 1; i <= FRAME_COUNT; i++) {
@@ -25,7 +27,11 @@ export default function CanvasScroll() {
         const img = new Image();
         img.src = `/frames/ezgif-frame-${id}.jpg`;
         const promise = new Promise<void>((resolve) => {
-          img.onload = () => resolve();
+          img.onload = () => {
+            loaded++;
+            setLoadingProgress(Math.round((loaded / FRAME_COUNT) * 100));
+            resolve();
+          };
         });
         frames.current.push(img);
         loadPromises.push(promise);
@@ -121,12 +127,46 @@ export default function CanvasScroll() {
   }, [imagesLoaded]);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-[#FAFAFA] text-black h-[500vh]">
-      {!imagesLoaded && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 text-neutral-400 bg-white tracking-widest uppercase text-sm">
-          Loading 3D Environment...
+    <section ref={containerRef} className="relative w-full bg-white text-black h-[500vh]">
+      <motion.div 
+        animate={{ opacity: imagesLoaded ? 0 : 1, pointerEvents: imagesLoaded ? "none" : "all" }}
+        transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+        className="fixed inset-0 flex flex-col items-center justify-center z-[200] bg-black text-white px-10 md:px-0"
+      >
+        <div className="flex flex-col items-center gap-12 w-full max-w-sm">
+          <div className="flex flex-col items-center gap-4">
+             <motion.p 
+               initial={{ opacity: 0, y: 10 }}
+               animate={{ opacity: 1, y: 0 }}
+               className="text-neutral-500 uppercase tracking-[0.5em] text-[10px] font-bold"
+             >
+               Loading Experience
+             </motion.p>
+             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter leading-none text-center">
+               OPTIMIZING <br/> SYSTEMS.
+             </h2>
+          </div>
+          
+          <div className="w-full flex flex-col items-center gap-4">
+            <div className="w-full h-[1px] bg-neutral-900 overflow-hidden relative">
+              <motion.div 
+                initial={{ x: "-100%" }}
+                animate={{ x: `${loadingProgress - 100}%` }}
+                className="absolute inset-0 bg-white"
+                transition={{ duration: 0.1 }}
+              />
+            </div>
+            <p className="text-[10px] font-mono tracking-widest text-neutral-500 uppercase flex justify-between w-full">
+              <span>Initializing</span>
+              <span>{loadingProgress}%</span>
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center opacity-30">
+            <p className="text-[9px] uppercase tracking-[0.3em] font-medium text-neutral-400">SHASHANK MALHOTRA / 2026</p>
+          </div>
         </div>
-      )}
+      </motion.div>
       
       {/* Sticky Canvas Container */}
       <div className="sticky top-0 h-screen w-full overflow-hidden z-0 bg-white">
@@ -167,11 +207,19 @@ export default function CanvasScroll() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="flex items-end md:items-center justify-end h-full w-full md:w-1/3 pb-12 md:pb-0 text-right pointer-events-auto"
           >
-            <div>
-              <p className="text-xl md:text-3xl font-light text-neutral-800 tracking-tight">
-                Frontend Engineer
-              </p>
-              <p className="text-neutral-400 uppercase tracking-widest text-xs mt-2 font-medium">Elevating the Web</p>
+            <div className="flex flex-col items-end gap-6">
+              <div className="flex flex-col items-end">
+                <p className="text-sm font-bold uppercase tracking-[0.4em] text-black">
+                  FRONTEND ENGINEER
+                </p>
+                <div className="w-12 h-[1px] bg-black mt-4"></div>
+              </div>
+              <div className="text-right">
+                <p className="text-neutral-500 italic font-light text-xl tracking-tight leading-none">
+                  Elevating <span className="text-black not-italic font-medium">the web</span>
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-400 mt-2">through scalable engineering</p>
+              </div>
             </div>
           </motion.div>
         </div>
