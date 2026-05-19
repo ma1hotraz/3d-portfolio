@@ -14,7 +14,7 @@ export default function About() {
         >
           <h2 className="text-sm tracking-[0.3em] text-neutral-500 uppercase mb-6">About</h2>
           <p className="text-3xl md:text-5xl leading-tight font-medium text-neutral-800">
-            Frontend Engineer with 3 years of experience designing scalable web applications. Passionate about leveraging AI-assisted workflows to radically accelerate full-stack delivery.
+            Frontend Engineer with 3 years of experience building scalable web apps and immersive, scroll-driven experiences. Passionate about AI-assisted workflows that accelerate full-stack delivery.
           </p>
         </motion.div>
 
@@ -43,7 +43,8 @@ export default function About() {
             <ul className="text-neutral-600 space-y-3 leading-relaxed">
               <li><strong>Languages & Frameworks:</strong> JavaScript (ES6+), TypeScript, React.js, Vue.js, Next.js</li>
               <li><strong>UI Libraries:</strong> Tailwind CSS, MUI, Bootstrap, PrimeVue, Shadcn</li>
-              <li><strong>AI & DevTools:</strong> Cursor, GitHub Copilot, Anti-Gravity, Gemini Vision</li>
+              <li><strong>Motion & Canvas:</strong> GSAP, ScrollTrigger, Framer Motion, Lenis, Canvas API</li>
+              <li><strong>AI & DevTools:</strong> Cursor, GitHub Copilot, Gemini</li>
               <li><strong>Testing & DevOps:</strong> Vitest, Playwright, Postman, Jest, Git, Jira</li>
             </ul>
           </div>

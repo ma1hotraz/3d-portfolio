@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { site } from "@/lib/site";
 
 const PROJECTS = [
-  { id: 1, title: "B2B SaaS Platform", category: "React / Prisma" },
-  { id: 2, title: "Freightmate", category: "Vue.js / Tailwind" },
-  { id: 3, title: "EnerFrog", category: "React.js" },
-  { id: 4, title: "MIS-Smartz", category: "Fullstack Tool" },
+  { id: 1, title: "Cinematic Portfolio", category: "Next.js / GSAP / Canvas", href: site.repo },
+  { id: 2, title: "MIS-Smartz", category: "React / TypeScript / Node.js" },
+  { id: 3, title: "Freightmate", category: "Vue.js / Tailwind / Vitest" },
+  { id: 4, title: "EnerFrog", category: "React / Next.js" },
 ];
 
 export default function Projects() {
@@ -35,6 +36,15 @@ export default function Projects() {
               viewport={{ once: true, margin: "-50px" }}
               className="group relative flex items-center justify-between py-8 md:py-16 border-b border-neutral-200 cursor-pointer overflow-hidden"
             >
+              {project.href && (
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 z-20"
+                  aria-label={`View ${project.title} on GitHub`}
+                />
+              )}
               <div className="absolute inset-0 w-full h-full bg-neutral-100 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
               
               <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-2 md:gap-12">

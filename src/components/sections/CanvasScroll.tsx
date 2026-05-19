@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import Marquee from "@/components/Marquee";
-
+import { site } from "@/lib/site";
 
 const FRAME_COUNT = 240;
 
@@ -133,47 +133,38 @@ export default function CanvasScroll() {
   }, [imagesLoaded]);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-white text-black h-[600vh]">
+    <section ref={containerRef} className="relative w-full bg-white text-black h-[700vh]">
       <motion.div 
         animate={{ opacity: imagesLoaded ? 0 : 1, pointerEvents: imagesLoaded ? "none" : "all" }}
-        transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-        className="fixed inset-0 flex flex-col items-center justify-center z-[200] bg-black text-white px-10 md:px-0"
+        transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+        className="fixed inset-0 z-[200] flex flex-col bg-white text-black"
+        aria-busy={!imagesLoaded}
+        aria-label="Loading portfolio"
       >
-        <div className="flex flex-col items-center gap-12 w-full max-w-sm">
-          <div className="flex flex-col items-center gap-4">
-             <motion.p 
-               initial={{ opacity: 0, y: 10 }}
-               animate={{ opacity: 1, y: 0 }}
-               className="text-neutral-500 uppercase tracking-[0.5em] text-[10px] font-bold"
-             >
-               Loading Experience
-             </motion.p>
-             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter leading-none text-center">
-               OPTIMIZING <br/> SYSTEMS.
-             </h2>
-          </div>
-          
-          <div className="w-full flex flex-col items-center gap-4">
-            <div className="w-full h-[1px] bg-neutral-900 overflow-hidden relative">
-              <motion.div 
-                initial={{ x: "-100%" }}
-                animate={{ x: `${loadingProgress - 100}%` }}
-                className="absolute inset-0 bg-white"
-                transition={{ duration: 0.1 }}
+        <div className="flex flex-1 flex-col justify-between p-6 md:p-10">
+          <p className="text-[10px] font-medium uppercase tracking-[0.35em] text-neutral-400">
+            {site.name}
+          </p>
+
+          <div className="w-full max-w-sm md:max-w-md">
+            <div className="flex items-baseline justify-between gap-4 mb-3">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">Loading</span>
+              <span className="text-sm font-medium tabular-nums text-neutral-800">{loadingProgress}%</span>
+            </div>
+            <div className="h-px w-full overflow-hidden bg-neutral-200">
+              <motion.div
+                className="h-full w-full bg-black origin-left"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: loadingProgress / 100 }}
+                transition={{ duration: 0.15, ease: "linear" }}
               />
             </div>
-            <p className="text-[10px] font-mono tracking-widest text-neutral-500 uppercase flex justify-between w-full">
-              <span>Initializing</span>
-              <span>{loadingProgress}%</span>
-            </p>
           </div>
 
-          <div className="flex flex-col items-center opacity-30">
-            <p className="text-[9px] uppercase tracking-[0.3em] font-medium text-neutral-400">SHASHANK MALHOTRA / 2026</p>
-          </div>
+          <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Frontend Engineer</p>
         </div>
       </motion.div>
-      
+
       {/* Fixed Header Marquee */}
       <div className="fixed top-0 left-0 w-full z-[100] pointer-events-none">
         <Marquee />
@@ -201,9 +192,11 @@ export default function CanvasScroll() {
                 Shashank<br />Malhotra.
               </h1>
               <div className="mt-4 md:mt-8 space-y-1 md:space-y-2">
-                <a href="mailto:malhotrazmr@gmail.com" className="block text-[10px] md:text-sm tracking-wider uppercase text-neutral-500 hover:text-black hover:underline transition-all">malhotrazmr@gmail.com</a>
-                <p className="block text-[10px] md:text-sm tracking-wider uppercase text-neutral-500 hover:text-black transition-all">+91-9115513782</p>
-                <p className="block text-[10px] md:text-sm tracking-wider uppercase text-neutral-500 hover:text-black transition-all">Chandigarh, India</p>
+                <a href={`mailto:${site.email}`} className="block text-[10px] md:text-sm tracking-wider uppercase text-neutral-500 hover:text-black hover:underline transition-all">{site.email}</a>
+                <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="block text-[10px] md:text-sm tracking-wider uppercase text-neutral-500 hover:text-black hover:underline transition-all">LinkedIn</a>
+                <a href={site.github} target="_blank" rel="noopener noreferrer" className="block text-[10px] md:text-sm tracking-wider uppercase text-neutral-500 hover:text-black hover:underline transition-all">GitHub</a>
+                <p className="block text-[10px] md:text-sm tracking-wider uppercase text-neutral-500">{site.phone}</p>
+                <p className="block text-[10px] md:text-sm tracking-wider uppercase text-neutral-500">{site.location}</p>
               </div>
             </motion.div>
             <motion.div 
@@ -223,7 +216,7 @@ export default function CanvasScroll() {
                   <p className="text-neutral-500 italic font-light text-lg md:text-xl tracking-tight leading-none">
                     Elevating <span className="text-black not-italic font-medium">the web</span>
                   </p>
-                  <p className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-400 mt-2">through scalable engineering</p>
+                  <p className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-400 mt-2">scalable systems &amp; immersive experiences</p>
                 </div>
               </div>
             </motion.div>
@@ -239,7 +232,8 @@ export default function CanvasScroll() {
                 <p className="text-neutral-400 uppercase tracking-widest text-[9px] md:text-xs mb-0 font-bold border-b border-black pb-1 inline-block self-start">Core Engineering</p>
                 {[
                   { cat: "Apps & Logic", items: "JavaScript (ES6+), TypeScript, React, Vue, Next.js" },
-                  { cat: "UI & Architecture", items: "Tailwind, MUI, PrimeVue, Shadcn, HTML5, CSS3" }
+                  { cat: "UI & Architecture", items: "Tailwind, MUI, PrimeVue, Shadcn, HTML5, CSS3" },
+                  { cat: "Motion & Canvas", items: "GSAP, ScrollTrigger, Framer Motion, Lenis, Canvas API" },
                 ].map((group, idx) => (
                   <motion.div 
                     key={idx} 
@@ -419,7 +413,56 @@ export default function CanvasScroll() {
           </div>
         </div>
 
+        {/* Slide 5: Featured Build — this portfolio */}
+        <div className="h-screen w-full relative">
+          <div className="sticky top-0 h-[55vh] md:h-full md:relative bg-white md:bg-transparent px-6 md:p-16 pt-12 md:pt-16 flex flex-col md:flex-row justify-between w-full overflow-y-auto md:overflow-visible pb-8 md:pb-0">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="w-full md:w-[35%] text-left pointer-events-auto flex-shrink-0"
+            >
+              <p className="text-neutral-400 uppercase tracking-widest text-[9px] md:text-xs mb-2 md:mb-8 font-bold border-b border-black pb-1 inline-block">Featured Build</p>
+              <p className="text-neutral-400 uppercase tracking-[0.2em] text-[8px] mb-1">Personal Project | 2026</p>
+              <h3 className="text-2xl md:text-5xl font-semibold tracking-tight text-black mb-3 leading-tight">Cinematic Portfolio</h3>
+              <p className="hidden md:block text-neutral-600 text-lg font-light leading-relaxed mb-6">
+                Scroll-driven experience with a <span className="text-black font-medium">240-frame canvas sequence</span>, GSAP ScrollTrigger choreography, and Lenis smooth scrolling — built to showcase engineering craft, not just screenshots.
+              </p>
+              <p className="block md:hidden text-neutral-600 text-[11px] font-light leading-relaxed mb-4">
+                240-frame canvas scroll, GSAP choreography, and Lenis smooth scroll.
+              </p>
+              <a
+                href={site.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-widest font-bold text-black border-b border-black pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors"
+              >
+                View source on GitHub →
+              </a>
+            </motion.div>
 
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              className="w-full md:w-[35%] ml-auto text-left md:text-right pointer-events-auto flex-shrink-0 mt-6 md:mt-0"
+            >
+              <p className="text-neutral-400 uppercase tracking-widest text-[9px] md:text-xs mb-4 md:mb-8 font-bold border-b border-black pb-1 inline-block md:ml-auto">Stack &amp; Craft</p>
+              <div className="space-y-4 md:space-y-8">
+                {[
+                  { label: "Framework", value: "Next.js 16 · React 19 · TypeScript" },
+                  { label: "Animation", value: "GSAP · ScrollTrigger · Framer Motion" },
+                  { label: "Experience", value: "Lenis · Canvas · Responsive layout" },
+                ].map((item) => (
+                  <div key={item.label} className="text-left md:text-right">
+                    <p className="text-[8px] md:text-[9px] uppercase tracking-widest text-neutral-400 font-bold mb-1">{item.label}</p>
+                    <p className="text-sm md:text-xl font-medium text-black tracking-tight">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
 
         {/* Slide 6: Education & Global Recognition */}
         <div className="h-screen w-full relative">
@@ -481,13 +524,14 @@ export default function CanvasScroll() {
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
                   <p className="text-neutral-600 uppercase tracking-widest text-[9px] md:text-[10px] mb-4 font-bold border-b border-neutral-900 pb-2 inline-block">Professional</p>
                   <div className="flex flex-col gap-3 md:gap-4">
-                    <a href="mailto:malhotrazmr@gmail.com" className="text-xl md:text-3xl lg:text-4xl font-light text-white hover:text-neutral-400 transition-all hover:translate-x-2 inline-block break-all">malhotrazmr@gmail.com</a>
-                    <a href="https://linkedin.com/in/malhotraz" target="_blank" rel="noopener noreferrer" className="text-lg md:text-2xl text-neutral-400 hover:text-white transition-all underline decoration-neutral-800 underline-offset-8">linkedin.com/in/malhotraz</a>
+                    <a href={`mailto:${site.email}`} className="text-xl md:text-3xl lg:text-4xl font-light text-white hover:text-neutral-400 transition-all hover:translate-x-2 inline-block break-all">{site.email}</a>
+                    <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="text-lg md:text-2xl text-neutral-400 hover:text-white transition-all underline decoration-neutral-800 underline-offset-8">linkedin.com/in/malhotraz</a>
+                    <a href={site.github} target="_blank" rel="noopener noreferrer" className="text-lg md:text-2xl text-neutral-400 hover:text-white transition-all underline decoration-neutral-800 underline-offset-8">github.com/ma1hotraz</a>
                   </div>
                 </motion.div>
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
                   <p className="text-neutral-600 uppercase tracking-widest text-[9px] md:text-[10px] mb-4 font-bold border-b border-neutral-900 pb-2 inline-block">Inquiry</p>
-                  <p className="text-xl md:text-3xl font-light text-white leading-none">+91-9115513782</p>
+                  <p className="text-xl md:text-3xl font-light text-white leading-none">{site.phone}</p>
                   <p className="text-neutral-500 text-[9px] mt-2 font-mono uppercase tracking-widest underline underline-offset-4 decoration-neutral-800">Chandigarh, IN</p>
                 </motion.div>
               </div>

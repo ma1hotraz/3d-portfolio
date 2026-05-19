@@ -10,8 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Creative Developer | Portfolio",
-  description: "A minimal, cinematic 3D portfolio.",
+  title: "Shashank Malhotra | Frontend Engineer",
+  description:
+    "Portfolio of Shashank Malhotra — frontend engineer building scalable web apps, scroll-driven canvas experiences, and high-performance UIs with React, Next.js, and GSAP.",
   icons: {
     icon: "/favicon.ico",
   },

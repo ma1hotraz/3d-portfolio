@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { site } from "@/lib/site";
 
 export default function Contact() {
   return (
@@ -14,7 +15,7 @@ export default function Contact() {
            className="text-center mb-24"
         >
           <p className="text-neutral-400 uppercase tracking-widest text-sm mb-6">Let's build something</p>
-          <a href="mailto:malhotrazmr@gmail.com" className="inline-block">
+          <a href={`mailto:${site.email}`} className="inline-block">
             <h2 className="text-6xl md:text-[10rem] font-bold tracking-tighter hover:text-neutral-400 transition-colors duration-500">
               CONNECT
             </h2>
@@ -23,9 +24,10 @@ export default function Contact() {
 
         <div className="w-full flex border-t border-neutral-200 pt-8 mt-auto flex-col md:flex-row items-center justify-between gap-6 text-sm text-neutral-500 uppercase tracking-widest">
           <div className="flex gap-6">
-            <a href="mailto:malhotrazmr@gmail.com" className="hover:text-black transition-colors">Email</a>
-            <a href="https://linkedin.com/in/malhotraz" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">LinkedIn</a>
-            <span className="hover:text-black transition-colors cursor-default">+91-9115513782</span>
+            <a href={`mailto:${site.email}`} className="hover:text-black transition-colors">Email</a>
+            <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">LinkedIn</a>
+            <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">GitHub</a>
+            <span className="hover:text-black transition-colors cursor-default">{site.phone}</span>
           </div>
           <div>
             &copy; {new Date().getFullYear()} Shashank Malhotra.
